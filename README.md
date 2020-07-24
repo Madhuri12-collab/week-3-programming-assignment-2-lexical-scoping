@@ -1,67 +1,27 @@
-# week-3-programming-assignment-2-lexical-scoping
-## Put comments here that give an overall description of what your
-
-## functions do
-
-
-
-## Write a short comment describing this function
-
-
-
-makeCachematrix<- function(x=matrix()){
-
-inv<-NULL
-
-set<-function(){
-
-
-
-x<<-y
-
-inv<<-NULL
-
+# 1. makeCacheMatrix: This function creates a special "matrix" object that can cache its inverse.
+makeCacheMatrix <- function(x = matrix()) {
+  j <- NULL
+  set <- function(y){
+  x <<- y
+  j <<- NULL
+  }
+  get <- function()x
+  setInverse <- function(inverse) j <<- inverse
+  getInverse <- function() j 
+  list(set = set, get = get, 
+  setInverse = setInverse, 
+  getInverse = getInverse)
 }
-
-get<-function(){x}
-
-setInverse<-function(Inverse){inv<<-inverse}
-
-getInverse<-function(){inv}
-
-list(set=set, get=get, setInverse=setInverse, getInverse=getInverse)
-
+#2.cacheSolve: This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. If the inverse has already been calculated (and the matrix has not changed), then the cachesolve should retrieve the inverse from the cache and It returns a matrix that is the inverse of 'x'
+cacheSolve <- function(x, ...) 
+{
+  j <- x$getInverse()
+  if(!is.null(j)){
+  message("getting cached data")
+  return(j)
+  }
+  mat <- x$get()
+  j <- solve(mat,...)
+  x$setInverse(j)
+  j
 }
-
-
-
-cacheSolve<-function(x, ...){
-
-
-
-inv<- x$getInverse()
-
-if(is.null(inv)){
-
-
-
-message("getting cached data")
-
-return(inv)
-
-
-
-}
-
-mat<-x$get()
-
-inv<-solve(mat, ...)
-
-x$setInv
-
-erse(inv)
-
-inv
-
-}
-
